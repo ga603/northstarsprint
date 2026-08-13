@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northstar Support Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Northstar Retail Co.</h1>
+            <p>Self-Service Support Portal</p>
+        </header>
+
+        <main>
+            <!-- Category 1: Order Status -->
+            <section class="widget" id="order-status">
+                <h2>Check Order Status</h2>
+                <p>Track your shipment without waiting for a representative.</p>
+                <div class="input-group">
+                    <input type="text" id="order-number" placeholder="Enter Order # (e.g., ORD-1001)">
+                    <button onclick="checkStatus()">Find Order</button>
+                </div>
+                <div id="status-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- Category 2: Returns & Refunds -->
+            <section class="widget" id="returns">
+                <h2>Start a Return</h2>
+                <p>Automate your return or check your refund status.</p>
+                <div class="input-group">
+                    <input type="text" id="return-order-number" placeholder="Enter Order # (e.g., ORD-1002)">
+                    <button onclick="startReturn()">Process Return</button>
+                </div>
+                <div id="return-result" class="result-box hidden"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
