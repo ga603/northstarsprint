@@ -1,24 +1,26 @@
-// Mock Database to simulate a backend lookup
 const mockDatabase = {
     "ORD-1001": {
         status: "Shipped",
         estimatedDelivery: "Aug 15, 2026",
-        carrier: "FedEx",
-        returnEligible: false // Too early to return
+        carrier: "Jumia",
+        returnEligible: false
     },
+
     "ORD-1002": {
         status: "Delivered",
         estimatedDelivery: "Aug 10, 2026",
-        carrier: "UPS",
+        carrier: "Bolt",
         returnEligible: true
     },
+
     "ORD-1003": {
         status: "Processing",
         estimatedDelivery: "Aug 18, 2026",
-        carrier: "Pending",
+        carrier: "Jumia",
         returnEligible: false
     }
 };
+
 
 // Feature 1: Order Status Logic
 function checkStatus() {
@@ -50,32 +52,71 @@ function checkStatus() {
 
 // Feature 2: Returns & Refunds Logic
 function startReturn() {
-    const returnInput = document.getElementById('return-order-number').value.trim().toUpperCase();
+    const returnInput = document
+        .getElementById('return-order-number')
+        .value
+        .trim()
+        .toUpperCase();
+
     const resultBox = document.getElementById('return-result');
-    
+
+    // Reset previous result styling
     resultBox.classList.remove('hidden', 'success', 'error');
 
+    // 1. Check whether the customer entered an order number
     if (!returnInput) {
         resultBox.textContent = "Please enter an order number.";
         resultBox.classList.add('error');
         return;
     }
 
+    // 2. Look for the order in the mock database
     const orderData = mockDatabase[returnInput];
 
-    if (orderData) {
-        if (orderData.returnEligible) {
-            resultBox.innerHTML = `Good news! Your order (${returnInput}) is eligible for a return. <br><br> <button style="background-color: #198754;">Generate Return Label</button>`;
-            resultBox.classList.add('success');
-        } else if (orderData.status !== "Delivered") {
-             resultBox.innerHTML = `Your order is currently marked as <strong>${orderData.status}</strong>. You can only initiate a return after the item has been delivered.`;
-             resultBox.classList.add('error');
-        } else {
-            resultBox.innerHTML = "This order is outside the 30-day return window and is no longer eligible for a return.";
-            resultBox.classList.add('error');
-        }
-    } else {
-        resultBox.textContent = "Order not found. We cannot process a return for an unknown order.";
+    // 3. Check whether the order exists
+    if (!orderData) {
+        resultBox.textContent =
+            "Order not found. Please verify your order number and try again.";
         resultBox.classList.add('error');
+        return;
     }
+
+    // 4. Check whether the order has been delivered
+    if (orderData.status !== "Delivered") {
+        resultBox.innerHTML = `
+            <strong>Return not available yet.</strong><br><br>
+            Your order is currently marked as 
+            <strong>${orderData.status}</strong>.<br>
+            You can start a return after the order has been delivered.
+        `;
+
+        resultBox.classList.add('error');
+        return;
+    }
+
+    // 5. Check whether the delivered order is eligible for return
+    if (orderData.returnEligible) {
+        resultBox.innerHTML = `
+            <strong>Good news!</strong><br><br>
+            Order <strong>${returnInput}</strong> is eligible for a return.<br><br>
+            You can start the return process and generate a return label.
+            <br><br>
+            <button type="button"
+                    style="background-color: #198754;">
+                Generate Return Label
+            </button>
+        `;
+
+        resultBox.classList.add('success');
+        return;
+    }
+
+    // 6. Order is delivered but outside the return window
+    resultBox.innerHTML = `
+        <strong>Return unavailable.</strong><br><br>
+        Order <strong>${returnInput}</strong> is outside the
+        30-day return window and is no longer eligible for a return.
+    `;
+
+    resultBox.classList.add('error');
 }
