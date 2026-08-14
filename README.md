@@ -35,17 +35,6 @@ This project gives customers a place to find those answers themselves, so the su
 - Results shown directly to the customer
 - Clear error and success messaging
 
-### What's Not Included Yet
-
-- Hooking into a live order-management system
-- Live payment or refund processing
-- Real carrier tracking APIs
-- A production customer database
-- Ticketing-system integration
-- Customer login/authentication
-
-These are deliberately left out for now. The point of the MVP is to prove the concept, not build the full production system on day one.
-
 ---
 
 ## 4. Technology Stack
@@ -56,18 +45,6 @@ The MVP is kept simple at this stage. It is a browser-based application built us
 - **CSS3** — styling and layout
 - **JavaScript** — application logic and customer interactions
 
-No frontend framework such as React, Angular, or Vue is currently used.
-
-The structure, styling, and application logic are separated into individual files, making the project easy to understand and maintain.
 
 ---
 
-## 5. Project Structure
-
-```text
-northstar-support-deflection-mvp/
-│
-├── README.md
-├── index.html
-├── styles.css
-└── app.js
