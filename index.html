@@ -63,6 +63,11 @@
                             Hello! I'm Agent 75 from Northstar Support. How can I help you today?
                         </div>
                     </div>
+                    <div class="chat-quick-chips">
+                        <button class="chip-btn" onclick="sendQuickMessage('Where is my order?')">Track Order</button>
+                        <button class="chip-btn" onclick="sendQuickMessage('I need help with a return')">Return Issue</button>
+                        <button class="chip-btn" onclick="sendQuickMessage('Connect me to human support')">Human Agent</button>
+                    </div>
                     <div class="chat-input-area">
                         <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="handleChatKey(event)">
                         <button onclick="sendChatMessage()">Send</button>

@@ -1,21 +1,30 @@
-// Mock Database
+// Mock Database with Carrier URLs and Item Details
 const orderDatabase = {
     "ORD-1001": {
         status: "Shipped",
-        estimatedDelivery: "Aug 15, 2026",
+        estimatedDelivery: "Aug 18, 2026",
         carrier: "FedEx",
+        trackingNumber: "781234567890",
+        trackingUrl: "https://www.fedex.com/fedextrack/?trknbr=781234567890",
+        items: ["Winter Parka Jacket (Size L)"],
         returnEligible: false
     },
     "ORD-1002": {
         status: "Delivered",
         estimatedDelivery: "Aug 10, 2026",
         carrier: "UPS",
+        trackingNumber: "1Z9999999999999999",
+        trackingUrl: "https://www.ups.com/track?tracknum=1Z9999999999999999",
+        items: ["Leather Trail Boots (Size 10)"],
         returnEligible: true
     },
     "ORD-1003": {
         status: "Processing",
-        estimatedDelivery: "Aug 18, 2026",
-        carrier: "Pending",
+        estimatedDelivery: "Aug 20, 2026",
+        carrier: "Pending Carrier Assignment",
+        trackingNumber: null,
+        trackingUrl: null,
+        items: ["Thermal Running Socks (2-Pack)"],
         returnEligible: false
     }
 };
@@ -44,10 +53,20 @@ function checkStatus() {
     const orderData = orderDatabase[orderInput];
 
     if (orderData) {
+        let trackingHtml = `<em>Tracking number pending assignment</em>`;
+        if (orderData.trackingUrl && orderData.trackingNumber) {
+            trackingHtml = `<a href="${orderData.trackingUrl}" target="_blank" rel="noopener noreferrer" class="tracking-link">
+                ${orderData.trackingNumber} (${orderData.carrier}) &rarr;
+            </a>`;
+        } else if (orderData.carrier) {
+            trackingHtml = `<span>${orderData.carrier}</span>`;
+        }
+
         resultBox.innerHTML = `
-            <strong>Status:</strong> ${orderData.status}<br>
-            <strong>Estimated Delivery:</strong> ${orderData.estimatedDelivery}<br>
-            <strong>Carrier:</strong> ${orderData.carrier}
+            <div class="status-detail-item"><strong>Status:</strong> ${orderData.status}</div>
+            <div class="status-detail-item"><strong>Estimated Delivery:</strong> ${orderData.estimatedDelivery}</div>
+            <div class="status-detail-item"><strong>Carrier & Tracking:</strong> ${trackingHtml}</div>
+            <div class="status-detail-item"><strong>Items in Order:</strong> ${orderData.items.join(', ')}</div>
         `;
         resultBox.classList.add('success');
     } else {
@@ -253,6 +272,12 @@ function openChatWithContext(initialMessage) {
     }, 1000);
 }
 
+function sendQuickMessage(text) {
+    const chatInput = document.getElementById('chat-input');
+    chatInput.value = text;
+    sendChatMessage();
+}
+
 function sendChatMessage() {
     const chatInput = document.getElementById('chat-input');
     const text = chatInput.value.trim();
@@ -272,6 +297,9 @@ function sendChatMessage() {
 
         if (isGreeting) {
             reply = "Hello! I'm Agent 75. How can I assist you with your order, return, or product questions today?";
+        } else if (lower.includes("human") || lower.includes("person") || lower.includes("representative")) {
+            showHumanEscalationOption();
+            return;
         } else if (lower.includes("refund") || lower.includes("return")) {
             reply = "I see this concerns a refund or return. I can issue a manual override ticket for your account.";
         } else if (lower.includes("shipping") || lower.includes("order")) {
