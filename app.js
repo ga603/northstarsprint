@@ -37,6 +37,36 @@ const stockDatabase = [
     { sku: "PROD-205", name: "Insulated Gloves", quantity: 0, restockDate: "Out of Stock (Restock Sep 01)" }
 ];
 
+// Dark Mode Toggle Logic
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.add('dark-mode');
+        updateThemeUI(true);
+    } else {
+        document.body.classList.remove('dark-mode');
+        updateThemeUI(false);
+    }
+}
+
+function toggleTheme() {
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    updateThemeUI(isDarkMode);
+}
+
+function updateThemeUI(isDark) {
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    
+    if (themeIcon && themeLabel) {
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+        themeLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    }
+}
+
 // Feature 1: Order Status Logic
 function checkStatus() {
     const orderInput = document.getElementById('order-number').value.trim().toUpperCase();
@@ -167,8 +197,10 @@ function checkStock() {
     }
 }
 
-// Auto-Suggest Handler
+// Auto-Suggest Handler & Theme Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+
     const input = document.getElementById('product-query');
     if (!input) return;
 
@@ -220,7 +252,7 @@ function renderSuggestions(items) {
     suggestBox.innerHTML = items.map(item => `
         <div class="suggestion-item" onclick="selectSuggestion('${item.sku}', '${item.name}')">
             <span><strong>${item.name}</strong></span>
-            <small style="color: #666;">(${item.sku})</small>
+            <small style="color: var(--subtext-color);">(${item.sku})</small>
         </div>
     `).join('');
 
@@ -411,4 +443,3 @@ function submitHumanEscalation(btnElement) {
         </p>
     `;
 }
- // End of app.js for now.
