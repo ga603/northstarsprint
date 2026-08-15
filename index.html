@@ -35,8 +35,55 @@
                 </div>
                 <div id="return-result" class="result-box hidden"></div>
             </section>
+
+            <!-- Category 3: Stock Availability -->
+            <section class="widget" id="stock">
+                <h2>Check Stock Availability</h2>
+                <p>Search item availability by Product ID or Name.</p>
+                <div class="input-group">
+                    <input type="text" id="product-query" placeholder="Enter SKU or Name (e.g., PROD-201 or Jacket)" autocomplete="off">
+                    <button onclick="checkStock()">Check Stock</button>
+                </div>
+                <div id="stock-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- Category 4: Live Agent Escalation -->
+            <section class="widget" id="live-chat-widget">
+                <h2>Need Extra Help?</h2>
+                <p>Couldn't find what you were looking for? Connect with a support agent.</p>
+                <button id="open-chat-btn" onclick="toggleChat()">Connect with Live Agent</button>
+                
+                <div id="chat-container" class="chat-container hidden">
+                    <div class="chat-header">
+                        <span>Agent Support (Online)</span>
+                        <button class="close-btn" onclick="toggleChat()">&times;</button>
+                    </div>
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="chat-message agent">
+                            Hello! I'm Agent 75 from Northstar Support. How can I help you today?
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="handleChatKey(event)">
+                        <button onclick="sendChatMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
+
+    <!-- Website Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">X (Twitter)</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">LinkedIn</a>
+            </div>
+            <p class="copyright">&copy; 2026 Northstar Retail Co. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
