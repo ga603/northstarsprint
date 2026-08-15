@@ -17,7 +17,7 @@ processing returns and refunds.
 | John Gachie | Base project structure and initial HTML, CSS and JavaScript setup |
 |Nelly Mwangi  | Returns & Refunds functionality |
 | Samuel Otieno | Dark Mode and Live Agent Chatbot functionality |
-| Dorcas-ui | README and documentation updates |
+|Dorcas Mutua| README and documentation updates |
 | Stephen Thiong'o| README and project documentation |
 
 ---
