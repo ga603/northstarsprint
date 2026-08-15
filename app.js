@@ -325,7 +325,7 @@ function handleFeedback(btnElement, isSatisfied) {
     const feedbackBox = btnElement.parentElement;
 
     if (isSatisfied) {
-        feedbackBox.innerHTML = `<em>Thank you for your feedback!</em>`;
+        feedbackBox.innerHTML = `<em>Thank you for your feedback! See you soon again!</em>`;
     } else {
         feedbackBox.innerHTML = `<em>We're sorry this didn't help.</em>`;
         showHumanEscalationOption();
@@ -379,7 +379,8 @@ function submitHumanEscalation(btnElement) {
         <strong>Transfer Request Sent!</strong>
         <p style="margin: 4px 0; font-size: 0.85rem;">
             A human representative has been notified and will respond via <strong>${contactValue}</strong> shortly.
-            Estimated wait time: <strong>~5 mins</strong>.
+            Estimated wait time: <strong>~10 mins</strong>.
         </p>
     `;
 }
+ // End of app.js for now.
