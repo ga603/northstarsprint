@@ -1,8 +1,9 @@
-const mockDatabase = {
+// Mock Database
+const orderDatabase = {
     "ORD-1001": {
         status: "Shipped",
         estimatedDelivery: "Aug 15, 2026",
-        carrier: "Jumia",
+        carrier: "FedEx",
         returnEligible: false
     },
 
@@ -21,13 +22,20 @@ const mockDatabase = {
     }
 };
 
+const stockDatabase = [
+    { sku: "PROD-201", name: "Winter Parka Jacket", quantity: 14, restockDate: "In Stock" },
+    { sku: "PROD-202", name: "Leather Trail Boots", quantity: 3, restockDate: "Low Stock (Restock Aug 20)" },
+    { sku: "PROD-203", name: "Thermal Running Socks", quantity: 0, restockDate: "Out of Stock (Restock Aug 25)" },
+    { sku: "PROD-204", name: "Waterproof Hiking Pants", quantity: 8, restockDate: "In Stock" },
+    { sku: "PROD-205", name: "Insulated Gloves", quantity: 0, restockDate: "Out of Stock (Restock Sep 01)" }
+];
 
 // Feature 1: Order Status Logic
 function checkStatus() {
     const orderInput = document.getElementById('order-number').value.trim().toUpperCase();
     const resultBox = document.getElementById('status-result');
     
-    resultBox.classList.remove('hidden', 'success', 'error');
+    resultBox.classList.remove('hidden', 'success', 'error', 'warning');
 
     if (!orderInput) {
         resultBox.textContent = "Please enter an order number.";
@@ -35,7 +43,7 @@ function checkStatus() {
         return;
     }
 
-    const orderData = mockDatabase[orderInput];
+    const orderData = orderDatabase[orderInput];
 
     if (orderData) {
         resultBox.innerHTML = `
@@ -45,7 +53,10 @@ function checkStatus() {
         `;
         resultBox.classList.add('success');
     } else {
-        resultBox.textContent = "Order not found. Please verify your order number and try again.";
+        resultBox.innerHTML = `
+            Order not found. Please verify your order number and try again.<br>
+            <button class="escalate-btn" onclick="openChatWithContext('I need help looking up my order ${orderInput}')">Escalate to Live Agent</button>
+        `;
         resultBox.classList.add('error');
     }
 }
@@ -62,6 +73,8 @@ function startReturn() {
 
     // Reset previous result styling
     resultBox.classList.remove('hidden', 'success', 'error');
+    
+    resultBox.classList.remove('hidden', 'success', 'error', 'warning');
 
     // 1. Check whether the customer entered an order number
     if (!returnInput) {
@@ -90,6 +103,27 @@ function startReturn() {
             You can start a return after the order has been delivered.
         `;
 
+    const match = stockDatabase.find(item => 
+        item.sku.toLowerCase() === query || item.name.toLowerCase().includes(query)
+    );
+
+    if (match) {
+        let badgeClass = "badge-instock";
+        if (match.quantity === 0) badgeClass = "badge-outstock";
+        else if (match.quantity < 5) badgeClass = "badge-lowstock";
+
+        resultBox.innerHTML = `
+            <strong>Product:</strong> ${match.name} (${match.sku})<br>
+            <strong>Stock Status:</strong> <span class="badge ${badgeClass}">${match.quantity > 0 ? match.quantity + ' Available' : 'Out of Stock'}</span><br>
+            <strong>Info:</strong> ${match.restockDate}<br>
+            ${match.quantity === 0 ? `<button class="escalate-btn" onclick="openChatWithContext('I would like to be notified when ${match.sku} restocks')">Ask Agent for Restock Alert</button>` : ''}
+        `;
+        resultBox.classList.add('success');
+    } else {
+        resultBox.innerHTML = `
+            Product not found. Try searching with 'PROD-201' or 'Jacket'.<br>
+            <button class="escalate-btn" onclick="openChatWithContext('Looking for product stock: ${query}')">Ask Agent about Item</button>
+        `;
         resultBox.classList.add('error');
         return;
     }
