@@ -98,7 +98,7 @@ button:hover {
     background-color: #2980b9;
 }
 
-/* Results Box */
+/* Results Box & Status Item Styling */
 .result-box {
     margin-top: 15px;
     padding: 15px;
@@ -110,6 +110,28 @@ button:hover {
 
 .result-box.hidden {
     display: none;
+}
+
+.status-detail-item {
+    margin-bottom: 6px;
+}
+
+.status-detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.tracking-link {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tracking-link:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
 }
 
 .success {
@@ -270,6 +292,34 @@ button:hover {
     border-radius: 8px;
 }
 
+/* Chat Quick Chips */
+.chat-quick-chips {
+    display: flex;
+    gap: 6px;
+    padding: 6px 10px;
+    background: #f0f4f8;
+    border-top: 1px solid #e0e0e0;
+    overflow-x: auto;
+}
+
+.chip-btn {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chip-btn:hover {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border-color: var(--secondary-color);
+}
+
 .chat-input-area {
     display: flex;
     padding: 10px;
@@ -332,7 +382,6 @@ button:hover {
     border-radius: 4px;
 }
 
-/* Updated button color to blue */
 .human-escalate-form button {
     padding: 6px 10px;
     font-size: 0.85rem;
