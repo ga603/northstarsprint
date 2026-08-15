@@ -234,13 +234,11 @@ Potential enhancements include:
 - Order history
 - Email notifications
 - SMS notifications
-- Persistent chat history
 - AI-powered chatbot
 - Real-time live agent integration
 - Admin dashboard
 - Analytics for support requests
 - FAQ knowledge base
-- Dark mode
 - Multi-language support
 
 ---
