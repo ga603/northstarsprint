@@ -8,11 +8,11 @@ The portal enables customers to resolve common retail support requests through a
 
 The current MVP includes the following support services:
 
-- **Order Status Tracking**
-- **Returns & Refunds**
-- **Stock Availability Lookup**
-- **Live Agent Chat**
-- **Human Support Escalation**
+- Order Status Tracking
+- Returns & Refunds
+- Stock Availability Lookup
+- Live Agent Chat
+- Human Support Escalation
 
 ---
 
@@ -35,7 +35,7 @@ This project reduces repetitive support requests by allowing customers to access
 
 ### What's Included
 
-###  Order Status
+### Order Status
 
 Customers can:
 
@@ -60,7 +60,7 @@ Customers can:
 
 ---
 
-###  Stock Availability
+### Stock Availability
 
 Customers can:
 
@@ -93,7 +93,7 @@ Customers can:
 
 ---
 
-###  Human Support Escalation
+### Human Support Escalation
 
 When automated support cannot resolve an issue, customers can:
 
@@ -105,7 +105,7 @@ When automated support cannot resolve an issue, customers can:
 
 ---
 
-###  Customer Feedback
+### Customer Feedback
 
 After every automated agent response, customers can:
 
@@ -114,7 +114,7 @@ After every automated agent response, customers can:
 
 ---
 
-###  User Interface
+### User Interface
 
 The portal includes:
 
@@ -136,7 +136,7 @@ The MVP is a browser-based application developed using:
 
 - **HTML5** — semantic page structure and user interface
 - **CSS3** — responsive layout, styling, stock badges, chat interface, suggestion dropdowns, and footer components
-- **JavaScript (Vanilla JS)** — application logic, mock databases, order lookup, returns processing, stock search, auto-complete suggestions, live chat, customer feedback, and human escalation workflows
+- **JavaScript — application logic, mock databases, order lookup, returns processing, stock search, auto-complete suggestions, live chat, customer feedback, and human escalation workflows
 
 ---
 
@@ -214,12 +214,11 @@ If not, the application immediately offers human support.
 ## 6. Technology Highlights
 
 - Responsive design
-- Modular JavaScript functions
+- JavaScript functions
 - Client-side form validation
 - Mock API simulation
 - Interactive search suggestions
 - Dynamic DOM manipulation
-- Context-aware chatbot simulation
 - Human support workflow
 
 ---
@@ -248,7 +247,7 @@ Potential enhancements include:
 
 ## 8. Technology Architecture
 
-```
+``
 Customer
      │
      ▼
@@ -260,7 +259,7 @@ Northstar Support Portal
      ├── Live Chat Module
      ├── Human Escalation Module
      └── Mock Databases
-```
+``
 
 ---
 
@@ -277,9 +276,3 @@ Northstar Support Portal
 - Human Escalation Workflow Complete
 
 - Customer Feedback System Complete
-
----
-
-## 10. Author
-
-Developed as part of the **Northstar Retail Co. Support Deflection MVP** project using HTML, CSS, and Vanilla JavaScript.
